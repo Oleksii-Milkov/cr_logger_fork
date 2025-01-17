@@ -13,7 +13,6 @@ import 'package:cr_logger/src/page/actions_and_values/actions_manager.dart';
 import 'package:cr_logger/src/page/actions_and_values/notifiers_manager.dart';
 import 'package:cr_logger/src/page/log_main/log_main.dart';
 import 'package:cr_logger/src/providers/sqflite_provider.dart';
-import 'package:cr_logger/src/res/theme.dart';
 import 'package:cr_logger/src/utils/console_log_output.dart';
 import 'package:cr_logger/src/utils/parsers/isolate_parser.dart';
 import 'package:cr_logger/src/utils/pretty_cr_printer.dart';
@@ -151,8 +150,14 @@ final class CRLoggerInitializer {
     _httpAdapter = CRHttpAdapter();
 
     if (theme != null) {
-      CRLoggerHelper.instance.theme =
-          theme.copyWithDefaultCardTheme(loggerTheme.cardTheme);
+      CRLoggerHelper.instance.theme = theme.copyWithDefaultCardTheme(
+        CardTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
+          elevation: 6,
+        ),
+      );
     }
     this.logFileName = logFileName ?? this.logFileName;
     this.hiddenFields = hiddenFields ?? [];
@@ -170,9 +175,7 @@ final class CRLoggerInitializer {
             printLogsCompactly: printLogsCompactly,
           ),
           output: _consoleLogOutput,
-          filter: useCrLoggerInReleaseBuild
-              ? ProductionFilter()
-              : DevelopmentFilter(),
+          filter: useCrLoggerInReleaseBuild ? ProductionFilter() : DevelopmentFilter(),
           level: Level.trace,
         );
 
@@ -186,8 +189,7 @@ final class CRLoggerInitializer {
   /// Get current Charles proxy settings as an "ip:port" string
   ///
   /// Proxy settings are saved in the logger with SharedPreferences
-  String? getProxySettings() =>
-      CRLoggerHelper.instance.getProxyFromSharedPref();
+  String? getProxySettings() => CRLoggerHelper.instance.getProxyFromSharedPref();
 
   /// Adds a value notifier to the Actions and values page
   void addValueNotifier({
