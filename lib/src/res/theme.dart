@@ -11,7 +11,7 @@ ThemeData get loggerTheme => ThemeData(
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: CRLoggerColors.black,
       ),
-      dialogTheme: const DialogThemeData(
+      dialogTheme: const DialogTheme(
         backgroundColor: Colors.white,
         contentTextStyle: TextStyle(
           color: Colors.black87,
@@ -24,7 +24,7 @@ ThemeData get loggerTheme => ThemeData(
         ),
         shape: Border(),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
